@@ -31,6 +31,8 @@ IPAddress gateway (192, 168,   4,  9);
 // Это маска подсети
 IPAddress subnet  (255, 255, 255,  0);
 
+pinMode(3, OUTPUT); // объявляем пин 3 как выход
+
 // Экземпляр веб-сервера
 WebServerImpl server(80);
 
@@ -100,6 +102,7 @@ void handle_not_found() {
 
 void setup() {
   thermo();
+  
   // Инициализируем wifi
   // Отключаем сохранение параметров во флеш
   WiFi.persistent(false);
@@ -119,6 +122,10 @@ void setup() {
   server.on("/", HTTP_GET, handle_root);
   // Устанавливаем обработчик для url /my-status
   server.on("/my-status", HTTP_GET, handle_my_status);
+  //
+  server.on("/relay-On", HTTP_GET, relayOn);
+  //
+  server.on("/relay-Off", HTTP_GET, relayOff);
   // Устанавливаем обработчик для всего остального не обработанного
   server.onNotFound(handle_not_found);
   // Запускаем сервер
@@ -174,3 +181,14 @@ void getThermo(){
   sensor5 = sensors.getTempC(thermo5);
   sensor6 = sensors.getTempC(thermo6);
 }
+void relayOn(){
+
+  digitalWrite(3, HIGH); // замыкаем реле
+
+
+}
+void relayOff(){
+
+    digitalWrite(3, LOW); // размыкаем реле
+}
+
