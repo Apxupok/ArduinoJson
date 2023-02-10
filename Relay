@@ -1,0 +1,15 @@
+void setup() {
+pinMode(3, OUTPUT); // объявляем пин 3 как выход
+}
+
+void loop() {
+digitalWrite(3, HIGH); // замыкаем реле
+
+delay(3000); // ждем 3 секунды
+
+digitalWrite(3, LOW); // размыкаем реле
+
+delay(1000); // ждем 1 секунду
+}
+
+
